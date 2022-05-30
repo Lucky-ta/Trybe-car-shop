@@ -6,5 +6,6 @@ const carRouter = Router();
 const carControllers = new CarController();
 
 carRouter.post('/', carControllers.create);
+carRouter.get('/', carControllers.getAll);
 
 export default carRouter;

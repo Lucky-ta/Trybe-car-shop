@@ -13,6 +13,15 @@ class CarController {
       return res.status(500).json({ message: e.message });
     }
   };
+
+  public getAll = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const cars = await this.carService.getAll();
+      return res.status(cars.status).json(cars.data);
+    } catch (e: any) {
+      return res.status(500).json({ message: e.message });
+    };
+  };
 }
 
 export default CarController;

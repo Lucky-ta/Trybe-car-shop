@@ -2,12 +2,16 @@ import { ZodError } from 'zod';
 import { Car, CarZodSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/carModel';
 
+type MessageError = {
+    message: string;
+}
+
 export interface ServiceError {
-  data: ZodError;
+  data: ZodError | MessageError;
   status: number;
 }
 export interface ResponseOk {
-  data: Car;
+  data: Car | Car[];
   status: number;
 }
 
@@ -21,6 +25,14 @@ class CarService {
     }
     const newCar = await this.carModel.create(car);
     return { data: newCar, status: 201 };
+  }
+
+  public async getAll(): Promise<ResponseOk | ServiceError> {
+    const data = await this.carModel.getAll();
+    if (data.length === 0) {
+      return { data, status: 200 };
+    }
+    return { data, status: 200 };
   }
 }
 

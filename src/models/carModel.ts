@@ -9,6 +9,11 @@ class CarModel {
     const newCar = await this.model.create(car);
     return newCar;
   }
+
+  public async getAll(): Promise<Car[]> {
+    const cars = await this.model.find();
+    return cars;
+  }
 }
 
 export default CarModel;
