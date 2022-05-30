@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import connectToDatabase from './connection';
+import carRouter from './routes/carRouter';
 
 class App {
   public app: express.Application;
@@ -7,6 +8,7 @@ class App {
   constructor() {
     this.app = express();
     this.app.use(express.json());
+    this.app.use('/cars', carRouter);
   }
 
   public startServer(PORT: string | number = 3001): void {
