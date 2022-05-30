@@ -49,6 +49,27 @@ class CarService {
     }
     return { data: car, status: 200 };
   }
+
+  public async update(id: string, car: Car): 
+  Promise<ResponseOk | ServiceError> {
+    if (id.length < 24) {
+      return { data: 
+        { error: 'Id must have 24 hexadecimal characters' },
+      status: 400, 
+      };
+    }
+    const parsed = CarZodSchema.safeParse(car);
+    if (!parsed.success) {
+      return { data: parsed.error, status: 400 };
+    }
+    const updatedCar = await this.carModel.update(id, car);
+    if (!updatedCar) {
+      return { data: { error: 'Object not found' }, status: 404 };
+    }
+    console.log(updatedCar);
+    
+    return { data: updatedCar, status: 200 };
+  }
 }
 
 export default CarService;

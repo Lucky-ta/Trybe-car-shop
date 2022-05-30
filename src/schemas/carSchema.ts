@@ -9,6 +9,6 @@ const carSchema = new Schema<Car>({
   model: { type: String, required: true },
   status: { type: Boolean, required: false },
   year: { type: Number, required: true },
-});
+}, { versionKey: false });
 
 export default carSchema;

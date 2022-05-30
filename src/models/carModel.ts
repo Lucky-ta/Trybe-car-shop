@@ -19,6 +19,11 @@ class CarModel {
     const car = await this.model.findById(id);
     return car;
   }
+
+  public async update(id: string, car: Car): Promise<Car | null> {
+    const updatedCar = await this.model.findByIdAndUpdate(id, car);
+    return updatedCar;
+  }
 }
 
 export default CarModel;

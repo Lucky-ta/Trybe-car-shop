@@ -32,6 +32,17 @@ class CarController {
       return res.status(500).json({ message: e.message });
     }
   };
+
+  public update = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { id } = req.params;
+      const { body } = req;
+      const car = await this.carService.update(id, body);
+      return res.status(car.status).json(car.data);
+    } catch (e: any) {
+      return res.status(500).json({ message: e.message });
+    }
+  };
 }
 
 export default CarController;
