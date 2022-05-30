@@ -17,5 +17,9 @@ describe('2 - Test Car Service', () => {
             const car = await carService.create(carCreateMock);
             expect(car).to.be.an('object');
         });
+        it('b) - Should return a list of cars', async () => {
+            const cars = await carService.getAll();
+            expect(cars).to.be.an('array');
+        });
     });
 });
