@@ -3,7 +3,7 @@ import { Car, CarZodSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/carModel';
 
 const errorMessage = 'Id must have 24 hexadecimal characters';
-const errorObjectNotFound = 'Object not found;';
+const errorObjectNotFound = 'Object not found';
 
 type MessageError = {
   message?: string;
