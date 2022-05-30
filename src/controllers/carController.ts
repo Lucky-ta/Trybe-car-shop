@@ -20,7 +20,7 @@ class CarController {
       return res.status(cars.status).json(cars.data);
     } catch (e: any) {
       return res.status(500).json({ message: e.message });
-    };
+    }
   };
 
   public getById = async (req: Request, res: Response): Promise<Response> => {
@@ -30,9 +30,8 @@ class CarController {
       return res.status(car.status).json(car.data);
     } catch (e: any) {
       return res.status(500).json({ message: e.message });
-    };
-  }
-
+    }
+  };
 }
 
 export default CarController;
