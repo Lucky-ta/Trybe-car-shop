@@ -2,6 +2,9 @@ import { ZodError } from 'zod';
 import { Car, CarZodSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/carModel';
 
+const errorMessage = 'Id must have 24 hexadecimal characters';
+const errorObjectNotFound = 'Object not found;';
+
 type MessageError = {
   message?: string;
   error?: string;
@@ -39,13 +42,13 @@ class CarService {
   public async getById(id: string): Promise<ResponseOk | ServiceError> {
     if (id.length < 24) {
       return { data: 
-        { error: 'Id must have 24 hexadecimal characters' },
+        { error: errorMessage },
       status: 400, 
       };
     }
     const car = await this.carModel.getById(id);
     if (!car) {
-      return { data: { error: 'Object not found' }, status: 404 };
+      return { data: { error: errorObjectNotFound }, status: 404 };
     }
     return { data: car, status: 200 };
   }
@@ -54,7 +57,7 @@ class CarService {
   Promise<ResponseOk | ServiceError> {
     if (id.length < 24) {
       return { data: 
-        { error: 'Id must have 24 hexadecimal characters' },
+        { error: errorMessage },
       status: 400, 
       };
     }
@@ -64,11 +67,25 @@ class CarService {
     }
     const updatedCar = await this.carModel.update(id, car);
     if (!updatedCar) {
-      return { data: { error: 'Object not found' }, status: 404 };
+      return { data: { error: errorObjectNotFound }, status: 404 };
     }
     console.log(updatedCar);
     
     return { data: updatedCar, status: 200 };
+  }
+
+  public async delete(id: string): Promise<ResponseOk | ServiceError> {
+    if (id.length < 24) {
+      return { data: 
+        { error: errorMessage },
+      status: 400, 
+      };
+    }
+    const deletedCar = await this.carModel.delete(id);
+    if (!deletedCar) {
+      return { data: { error: errorObjectNotFound }, status: 404 };
+    }
+    return { data: deletedCar, status: 204 };
   }
 }
 

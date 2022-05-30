@@ -24,6 +24,11 @@ class CarModel {
     const updatedCar = await this.model.findByIdAndUpdate(id, car);
     return updatedCar;
   }
+
+  public async delete(id: string): Promise<Car | null> {
+    const deletedCar = await this.model.findByIdAndDelete(id);
+    return deletedCar;
+  }
 }
 
 export default CarModel;
