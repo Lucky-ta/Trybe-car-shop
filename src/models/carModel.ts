@@ -14,6 +14,11 @@ class CarModel {
     const cars = await this.model.find();
     return cars;
   }
+
+  public async getById(id: string): Promise<Car | null> {
+    const car = await this.model.findById(id);
+    return car;
+  }
 }
 
 export default CarModel;

@@ -3,7 +3,8 @@ import { Car, CarZodSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/carModel';
 
 type MessageError = {
-    message: string;
+    message?: string;
+    error?: string;
 }
 
 export interface ServiceError {
@@ -11,7 +12,7 @@ export interface ServiceError {
   status: number;
 }
 export interface ResponseOk {
-  data: Car | Car[];
+  data: Car | Car[] | null;
   status: number;
 }
 
@@ -33,6 +34,17 @@ class CarService {
       return { data, status: 200 };
     }
     return { data, status: 200 };
+  }
+
+public async getById(id: string): Promise<ResponseOk | ServiceError> {
+    if (id.length < 24 ) {
+        return { data: {error: 'Id must have 24 hexadecimal characters'}, status: 400 };
+    }
+    const car = await this.carModel.getById(id);
+    if (!car) {
+        return { data: {error: 'Object not found'}, status: 404 };
+    }
+    return { data: car, status: 200 };
   }
 }
 
