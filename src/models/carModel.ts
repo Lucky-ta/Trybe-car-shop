@@ -3,7 +3,13 @@ import carSchema from '../schemas/carSchema';
 import { Car } from '../interfaces/CarInterface';
 
 class CarModel {
-  constructor(protected model = createModel<Car>('Cars', carSchema)) {}
+  constructor(private model = createModel('Cars', carSchema)) {
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
   public async create(car: Car): Promise<Car> {
     const newCar = await this.model.create(car);

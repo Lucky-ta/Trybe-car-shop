@@ -20,7 +20,13 @@ export interface ResponseOk {
 }
 
 class CarService {
-  constructor(protected carModel = new CarModel()) { }
+  constructor(protected carModel = new CarModel()) { 
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
   public async create(car: Car): Promise<ResponseOk | ServiceError > {
     const parsed = CarZodSchema.safeParse(car);
